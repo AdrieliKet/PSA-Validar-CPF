@@ -20,8 +20,8 @@ class Home extends StatelessWidget {
         .map<int>((e) => int.parse(e))
         .toList();
     var ehNumerosIguais = true;
-    var primeiroDigito = int.parse(cpfCompleto.substring(9, 10));
-    var segundoDigito = int.parse(cpfCompleto.substring(10, 11));
+    var primeiroDigito = int.parse(cpfSemMascara.substring(9, 10));
+    var segundoDigito = int.parse(cpfSemMascara.substring(10, 11));
 
     for (var i = 1; i < cpfListaNumeros.length; i++) {
       if (cpfListaNumeros[i - 1] != cpfListaNumeros[i]) {
@@ -40,7 +40,7 @@ class Home extends StatelessWidget {
 
     digitoCalculado = 11 - (digitoCalculado % 11);
     if (digitoCalculado > 9) digitoCalculado = 0;
-    if (primeiroDigito == digitoCalculado) return 'Primeiro digito incorreto';
+    if (primeiroDigito != digitoCalculado) return 'Primeiro digito incorreto';
 
     cpfListaNumeros.add(digitoCalculado);
     peso = 11;
@@ -51,7 +51,7 @@ class Home extends StatelessWidget {
     }
     digitoCalculado = 11 - (digitoCalculado % 11);
     if (digitoCalculado > 9) digitoCalculado = 0;
-    if (segundoDigito == digitoCalculado) return 'Segundo digito incorreto';
+    if (segundoDigito != digitoCalculado) return 'Segundo digito incorreto';
 
     return 'CPF valido';
   }
