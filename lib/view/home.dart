@@ -4,11 +4,39 @@ class Home extends StatelessWidget {
   Home({Key? key}) : super(key: key);
   var campoCpf = TextEditingController();
 
-  String validar(String cpf) {
-    // temporário apagar
-    var cpfCompleto = cpf;
-    // >>>>>>>>>>>>>>>>>>
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Primeria Página')),
+      body: Center(
+        child: Column(
+          children: [
+            TextField(
+              decoration: const InputDecoration(
+                  label: Text('CPF'), hintText: 'Informe o seu CPF'),
+              controller: campoCpf,
+            ),
+            ElevatedButton(
+              child: const Text('verificar'),
+              onPressed: () {
+                var resultado = validarCPF(campoCpf.text);
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text('Aviso'),
+                        content: Text(resultado),
+                      );
+                    });
+              },
+            )
+          ],
+        ),
+      ),
+    );
+  }
 
+  String validarCPF(String cpfCompleto) {
     if (!cpfCompleto.contains('.')) return 'CPF deve possuir "."';
     if (!cpfCompleto.contains('-')) return 'CPF deve possuir "-"';
     if (cpfCompleto.length != 14) return 'CPF deve possuir 14 caracteres';
@@ -56,35 +84,4 @@ class Home extends StatelessWidget {
     return 'CPF valido';
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Primeria Página')),
-      body: Center(
-        child: Column(
-          children: [
-            TextField(
-              decoration: const InputDecoration(
-                  label: Text('CPF'), hintText: 'Informe o seu CPF'),
-              controller: campoCpf,
-            ),
-            ElevatedButton(
-              child: const Text('verificar'),
-              onPressed: () {
-                var resultado = validar(campoCpf.text);
-                showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: const Text('Aviso'),
-                        content: Text(resultado),
-                      );
-                    });
-              },
-            )
-          ],
-        ),
-      ),
-    );
-  }
 }
